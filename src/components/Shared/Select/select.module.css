@@ -1,0 +1,19 @@
+.selectContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
+.lbl {
+  margin-right: 0.5rem;
+}
+
+.sel {
+  width: 10rem;
+  height: 1.5rem;
+}
+
+.error {
+  color: brown;
+  margin-left: 0.5rem;
+}
