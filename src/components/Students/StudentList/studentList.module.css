@@ -1,0 +1,10 @@
+.container {
+  overflow: auto;
+  width: 80vw;
+  height: 55vh;
+  margin-top: 1rem;
+}
+
+.colStudent {
+  font-weight: bolder;
+}
