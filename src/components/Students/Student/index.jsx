@@ -4,13 +4,17 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import styles from './student.module.css';
 
-const Student = ({ student }) => {
-  const { /* _id, */ name, lastName, age, course, turn, amount } = student;
+const Student = ({ student, onDelete }) => {
+  const { _id, name, lastName, age, course, turn, amount } = student;
 
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
       <TableCell>
-        <FaTimes className={styles.btn} style={{ cursor: 'pointer' }} />
+        <FaTimes
+          className={styles.btn}
+          style={{ cursor: 'pointer' }}
+          onClick={() => onDelete(_id)}
+        />
         <FaEdit className={styles.btn} style={{ cursor: 'pointer' }} />
       </TableCell>
       <TableCell component="th" scope="row">
