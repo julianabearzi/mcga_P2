@@ -5,6 +5,9 @@ import {
   ADD_STUDENT_FETCHING,
   ADD_STUDENT_FULFILLED,
   ADD_STUDENT_REJECTED,
+  DELETE_STUDENT_FETCHING,
+  DELETE_STUDENT_FULFILLED,
+  DELETE_STUDENT_REJECTED,
 } from '../types/studentActionTypes';
 
 const initialState = {
@@ -44,6 +47,25 @@ const studentReducer = (state = initialState, action) => {
         list: [...state.list, action.payload],
       };
     case ADD_STUDENT_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+      };
+    case DELETE_STUDENT_FETCHING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case DELETE_STUDENT_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: [
+          ...state.list.filter((student) => student._id !== action.payload),
+        ],
+      };
+    case DELETE_STUDENT_REJECTED:
       return {
         ...state,
         isLoading: false,
