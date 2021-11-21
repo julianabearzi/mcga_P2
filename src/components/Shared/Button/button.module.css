@@ -35,3 +35,10 @@
   opacity: 1;
   right: 10px;
 }
+
+.button:disabled {
+  background: #dddddd;
+  pointer-events: none;
+  box-shadow: none;
+  color: grey;
+}

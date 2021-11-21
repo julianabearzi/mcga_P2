@@ -11,17 +11,13 @@ import ConfirmationMessage from './ConfirmationMessage';
 import Modal from '../Shared/Modal';
 import styles from './students.module.css';
 
-const Students = ({ students, getStudents, showModal, modalType }) => {
+const Students = ({ students, getStudents, showModal, modalType, meta }) => {
   useEffect(() => {
     getStudents();
   }, []);
 
   const showAddModal = () => {
     showModal(modalTypes.ADD_STUDENT);
-  };
-
-  const showDeleteModal = () => {
-    showModal(modalTypes.DELETE_STUDENT);
   };
 
   return (
@@ -39,10 +35,12 @@ const Students = ({ students, getStudents, showModal, modalType }) => {
 
       <Modal>
         {modalType === 'ADD_STUDENT' && <StudentForm />}{' '}
-        {modalType === 'DELETE_STUDENT' && <ConfirmationMessage />}
+        {modalType === 'DELETE_STUDENT' && (
+          <ConfirmationMessage studentId={meta.id} studentName={meta.name} />
+        )}
       </Modal>
 
-      <StudentList students={students} onDelete={() => showDeleteModal()} />
+      <StudentList students={students} />
     </div>
   );
 };
@@ -59,6 +57,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => ({
   students: state.students,
   modalType: state.modal.modalType,
+  meta: state.modal.meta,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Students);
