@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import Student from '../Student';
 import styles from './studentList.module.css';
 
-const StudentList = ({ students, onDelete }) => {
+const StudentList = ({ students }) => {
   return (
     <div>
       {students.isLoading ? (
@@ -40,11 +40,7 @@ const StudentList = ({ students, onDelete }) => {
             </TableHead>
             <TableBody>
               {students.list.map((student) => (
-                <Student
-                  key={student._id}
-                  student={student}
-                  onDelete={onDelete}
-                />
+                <Student key={student._id} student={student} />
               ))}
             </TableBody>
           </Table>
