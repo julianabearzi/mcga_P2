@@ -5,6 +5,9 @@ import {
   ADD_STUDENT_FETCHING,
   ADD_STUDENT_FULFILLED,
   ADD_STUDENT_REJECTED,
+  UPDATE_STUDENT_FETCHING,
+  UPDATE_STUDENT_FULFILLED,
+  UPDATE_STUDENT_REJECTED,
   DELETE_STUDENT_FETCHING,
   DELETE_STUDENT_FULFILLED,
   DELETE_STUDENT_REJECTED,
@@ -65,6 +68,37 @@ export const addStudent = (student) => (dispatch) => {
     })
     .catch(() => {
       dispatch(addStudentRejected());
+    });
+};
+
+export const updateStudentFetching = () => ({
+  type: UPDATE_STUDENT_FETCHING,
+});
+
+export const updateStudentFulfilled = (payload) => ({
+  type: UPDATE_STUDENT_FULFILLED,
+  payload,
+});
+
+export const updateStudentRejected = () => ({
+  type: UPDATE_STUDENT_REJECTED,
+});
+
+export const updateStudent = (student) => (dispatch) => {
+  dispatch(updateStudentFetching());
+  return fetch(`${URL}/students/${student.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(student),
+  })
+    .then((data) => data.json())
+    .then((response) => {
+      dispatch(updateStudentFulfilled(response));
+    })
+    .catch(() => {
+      dispatch(updateStudentRejected());
     });
 };
 

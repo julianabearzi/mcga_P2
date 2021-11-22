@@ -5,6 +5,9 @@ import {
   ADD_STUDENT_FETCHING,
   ADD_STUDENT_FULFILLED,
   ADD_STUDENT_REJECTED,
+  UPDATE_STUDENT_FETCHING,
+  UPDATE_STUDENT_FULFILLED,
+  UPDATE_STUDENT_REJECTED,
   DELETE_STUDENT_FETCHING,
   DELETE_STUDENT_FULFILLED,
   DELETE_STUDENT_REJECTED,
@@ -47,6 +50,29 @@ const studentReducer = (state = initialState, action) => {
         list: [...state.list, action.payload],
       };
     case ADD_STUDENT_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+      };
+    case UPDATE_STUDENT_FETCHING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case UPDATE_STUDENT_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: state.list.map((student) => {
+          if (student._id === action.payload._id) {
+            const studentUpdated = action.payload;
+            return studentUpdated;
+          }
+          return student;
+        }),
+      };
+    case UPDATE_STUDENT_REJECTED:
       return {
         ...state,
         isLoading: false,
