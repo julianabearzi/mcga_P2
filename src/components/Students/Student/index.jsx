@@ -18,6 +18,12 @@ const Student = ({ student, showModal }) => {
     });
   };
 
+  const showUpdateModal = () => {
+    showModal(modalTypes.UPDATE_STUDENT, {
+      student,
+    });
+  };
+
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
       <TableCell>
@@ -26,7 +32,11 @@ const Student = ({ student, showModal }) => {
           style={{ cursor: 'pointer' }}
           onClick={() => showDeleteModal(_id, name)}
         />
-        <FaEdit className={styles.btn} style={{ cursor: 'pointer' }} />
+        <FaEdit
+          className={styles.btn}
+          style={{ cursor: 'pointer' }}
+          onClick={() => showUpdateModal(student)}
+        />
       </TableCell>
       <TableCell component="th" scope="row">
         {name}

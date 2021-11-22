@@ -10,16 +10,23 @@ import {
   string,
   composeValidators,
 } from '../../../utils/validations';
-import { addStudent as addStudentAction } from '../../../redux/actions/studentActions';
+import {
+  addStudent as addStudentAction,
+  updateStudent as updateStudentAction,
+} from '../../../redux/actions/studentActions';
 import { closeModal as closeModalAction } from '../../../redux/actions/modalActions';
 import Button from '../../Shared/Button';
 import Select from '../../Shared/Select';
 import TextInput from '../../Shared/TextInput';
 import styles from './studentForm.module.css';
 
-const StudentForm = ({ addStudent, closeModal }) => {
+const StudentForm = ({ addStudent, updateStudent, closeModal, student }) => {
   const onSubmitStudent = (values) => {
-    addStudent(values);
+    if (student) {
+      updateStudent({ ...values, id: student._id });
+    } else {
+      addStudent(values);
+    }
     closeModal();
   };
 
@@ -58,12 +65,18 @@ const StudentForm = ({ addStudent, closeModal }) => {
       <Form
         onSubmit={onSubmitStudent}
         initialValues={{
-          turn: 'morning',
-          course: 'Javascript',
+          name: student ? student.name : '',
+          lastName: student ? student.lastName : '',
+          age: student ? student.age : '',
+          turn: student ? student.turn : 'morning',
+          course: student ? student.course : 'Javascript',
+          amount: student ? student.amount : '',
         }}
         render={({ handleSubmit, form, submitting, pristine }) => (
           <form onSubmit={handleSubmit} className={styles.formContainer}>
-            <p className={styles.addText}>Add Student</p>
+            <p className={styles.addText}>
+              {student ? 'Update Student' : 'Add Student'}
+            </p>
             <div className={styles.textInput}>
               <Field
                 name="name"
@@ -140,6 +153,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       addStudent: addStudentAction,
+      updateStudent: updateStudentAction,
       closeModal: closeModalAction,
     },
     dispatch

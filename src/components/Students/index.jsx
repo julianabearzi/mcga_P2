@@ -38,6 +38,9 @@ const Students = ({ students, getStudents, showModal, modalType, meta }) => {
         {modalType === 'DELETE_STUDENT' && (
           <ConfirmationMessage studentId={meta.id} studentName={meta.name} />
         )}
+        {modalType === 'UPDATE_STUDENT' && (
+          <StudentForm student={meta.student} />
+        )}{' '}
       </Modal>
 
       <StudentList students={students} />
