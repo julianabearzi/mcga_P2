@@ -1,0 +1,12 @@
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+}
+.lbl {
+  margin-right: 0.5rem;
+}
+
+.error {
+  color: brown;
+  margin-left: 0.5rem;
+}

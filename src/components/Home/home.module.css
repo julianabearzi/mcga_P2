@@ -1,0 +1,16 @@
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+  font-size: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1.5rem;
+}

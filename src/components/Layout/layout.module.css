@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+}

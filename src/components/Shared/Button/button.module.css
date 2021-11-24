@@ -1,0 +1,44 @@
+.button {
+  border-radius: 4px;
+  background-color: #fdfad0;
+  border: 1px solid black;
+  color: rgb(69, 125, 199);
+  text-transform: uppercase;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 36px;
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 14px;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover {
+  padding-right: 24px;
+  padding-left: 8px;
+}
+
+.button:hover:after {
+  opacity: 1;
+  right: 10px;
+}
+
+.button:disabled {
+  background: #dddddd;
+  pointer-events: none;
+  box-shadow: none;
+  color: grey;
+}
