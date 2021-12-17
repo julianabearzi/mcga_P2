@@ -4,11 +4,22 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import styles from './textInput.module.css';
 
-const TextInput = ({ input, label, placeholder, meta, size, variant }) => {
+const TextInput = ({
+  input,
+  label,
+  placeholder,
+  meta,
+  size,
+  variant,
+  type,
+  id,
+}) => {
   return (
     <div className={styles.inputContainer}>
       <label className={styles.lbl}>{label}</label>
       <TextField
+        type={type}
+        id={id}
         {...input}
         size={size}
         variante={variant}
