@@ -4,6 +4,10 @@
 
 A React App for students. Project made for the second MCGA exam.
 
+## Deployed on Heroku
+
+Try it [Here](https://students-app-front.herokuapp.com/)
+
 ## Getting Started
 
 - Clone the repository
