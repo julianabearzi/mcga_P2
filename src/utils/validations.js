@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 export const required = (value) => (value ? undefined : 'Required ❗');
 
 export const number = (value) => (!Number(value) ? 'Only numbers' : undefined);
@@ -10,6 +11,13 @@ export const trim = (value) =>
 
 export const string = (value) =>
   /^[A-Za-z\s]+$/.test(value) ? undefined : 'Only letters';
+
+export const usernameFormat = (value) =>
+  /^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){2,22}[a-zA-Z0-9]$/.test(
+    value
+  )
+    ? undefined
+    : 'Invalid format';
 
 export const composeValidators =
   (...validators) =>

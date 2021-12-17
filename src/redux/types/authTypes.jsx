@@ -1,0 +1,6 @@
+export const LOG_IN_FETCHING = 'LOG_IN_FETCHING';
+export const LOG_IN_FULFILLED = 'LOG_IN_FULFILLED';
+export const LOG_IN_REJECTED = 'LOG_IN_REJECTED';
+export const SIGN_UP_FETCHING = 'SIGN_UP_FETCHING';
+export const SIGN_UP_REJECTED = 'SIGN_UP_REJECTED';
+export const LOG_OUT = 'LOG_OUT';

@@ -84,6 +84,8 @@ const StudentForm = ({ addStudent, updateStudent, closeModal, student }) => {
                 placeholder="Add name"
                 label="Name:"
                 validate={composeValidators(required, trim, string)}
+                variant="filled"
+                size="small"
               />
             </div>
             <div className={styles.textInput}>
@@ -93,6 +95,8 @@ const StudentForm = ({ addStudent, updateStudent, closeModal, student }) => {
                 placeholder="Add last name"
                 label="Last name:"
                 validate={composeValidators(required, trim, string)}
+                variant="filled"
+                size="small"
               />
             </div>
             <div className={styles.textInput}>
@@ -102,6 +106,8 @@ const StudentForm = ({ addStudent, updateStudent, closeModal, student }) => {
                 placeholder="Add age"
                 label="Age:"
                 validate={composeValidators(required, number, minValue, trim)}
+                variant="filled"
+                size="small"
               />
             </div>
             <div>
@@ -127,6 +133,8 @@ const StudentForm = ({ addStudent, updateStudent, closeModal, student }) => {
                 placeholder="Add amount"
                 label="Amount:"
                 validate={composeValidators(required, number, trim)}
+                variant="filled"
+                size="small"
               />
             </div>
             <div className={styles.buttonContainer}>
