@@ -4,7 +4,9 @@ import styles from './footer.module.css';
 const Footer = () => {
   return (
     <div className={styles.footer}>
-      <p className={styles.text}>© 2021 - Juliana Bearzi</p>
+      <p className={styles.text}>
+        © {new Date().getFullYear()} - Juliana Bearzi
+      </p>
     </div>
   );
 };
