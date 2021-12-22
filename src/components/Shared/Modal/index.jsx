@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'white',
     border: '2px solid #000',
     boxShadow: '8px 4px 4px black',
-    padding: '16px 32px 24px ',
+    padding: '0px 30px 0px ',
     outline: 0,
   },
 }));
