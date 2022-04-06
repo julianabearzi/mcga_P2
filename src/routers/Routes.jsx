@@ -1,6 +1,8 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { useEffect, React } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import LinearProgress from '@mui/material/LinearProgress';
 import Home from '../components/Home';
 import Layout from '../components/Layout';
 import Login from '../components/Login';
@@ -8,8 +10,17 @@ import Users from '../components/Users';
 import Students from '../components/Students';
 import PrivateRoute from './PrivateRoute';
 import RoutePublic from './PublicRoute';
+import { revalidateToken as revalidateTokenAction } from '../redux/actions/authActions';
 
-const Routes = ({ username }) => {
+const Routes = ({ revalidateToken, isLoading }) => {
+  useEffect(() => {
+    revalidateToken();
+  }, []);
+
+  if (isLoading) {
+    return <LinearProgress />;
+  }
+
   return (
     <Switch>
       <Redirect exact push from="/" to="/home" />
@@ -18,26 +29,31 @@ const Routes = ({ username }) => {
           <Home />
         </Layout>
       </Route>
-      <RoutePublic
-        exact
-        path="/login"
-        component={Login}
-        authenticated={!!username}
-      />
-      <RoutePublic
-        exact
-        path="/signup"
-        component={Users}
-        authenticated={!!username}
-      />
-      <PrivateRoute exact path="/students" component={Students} />
+      <RoutePublic exact path="/login">
+        <Login />
+      </RoutePublic>
+      <RoutePublic exact path="/signup">
+        <Users />
+      </RoutePublic>
+      <PrivateRoute exact path="/students">
+        <Students />
+      </PrivateRoute>
       <Redirect exact push from="*" to="/home" />
     </Switch>
   );
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      revalidateToken: revalidateTokenAction,
+    },
+    dispatch
+  );
+};
+
 const mapStateToProps = (state) => ({
-  username: state.auth.username,
+  isLoading: state.auth.isLoading,
 });
 
-export default connect(mapStateToProps, null)(Routes);
+export default connect(mapStateToProps, mapDispatchToProps)(Routes);

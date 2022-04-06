@@ -4,21 +4,23 @@ import {
   LOG_IN_REJECTED,
   SIGN_UP_FETCHING,
   SIGN_UP_REJECTED,
+  REVALIDATE_TOKEN_FETCHING,
+  REVALIDATE_TOKEN_FINISHED,
   LOG_OUT,
 } from '../types/authTypes';
 
 const URL = process.env.REACT_APP_BACKEND_URL;
 
-const loginFetching = () => ({
+export const loginFetching = () => ({
   type: LOG_IN_FETCHING,
 });
 
-const loginFulfilled = (username) => ({
+export const loginFulfilled = (_id, username) => ({
   type: LOG_IN_FULFILLED,
-  payload: username,
+  payload: { _id, username },
 });
 
-const loginRejected = () => ({
+export const loginRejected = () => ({
   type: LOG_IN_REJECTED,
 });
 
@@ -34,7 +36,9 @@ export const logIn = (values) => (dispatch) => {
     .then((data) => data.json())
     .then((response) => {
       if (response.errors === undefined) {
-        dispatch(loginFulfilled(values.username));
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('token-init-date', new Date().getTime());
+        dispatch(loginFulfilled(response._id, values.username));
       } else {
         dispatch(loginRejected());
       }
@@ -62,14 +66,55 @@ export const signUp = (values) => (dispatch) => {
     body: JSON.stringify(values),
   })
     .then((data) => data.json())
-    .then(() => {
-      dispatch(loginFulfilled(values.username));
+    .then((response) => {
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('token-init-date', new Date().getTime());
+      dispatch(loginFulfilled(response._id, values.username));
     })
     .catch(() => {
       dispatch(signUpRejected());
     });
 };
 
+export const revalidateTokenFetching = () => ({
+  type: REVALIDATE_TOKEN_FETCHING,
+});
+
+export const revalidateTokenFinished = () => ({
+  type: REVALIDATE_TOKEN_FINISHED,
+});
+
+export const revalidateToken = () => (dispatch) => {
+  const token = localStorage.getItem('token') || '';
+
+  dispatch(revalidateTokenFetching());
+  return fetch(`${URL}/users/renew`, {
+    headers: {
+      'x-token': token,
+    },
+  })
+    .then((data) => data.json())
+    .then((response) => {
+      if (response.token !== undefined) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('token-init-date', new Date().getTime());
+        dispatch(loginFulfilled(response._id, response.username));
+      } else {
+        dispatch(revalidateTokenFinished());
+      }
+    })
+    .catch(() => {
+      dispatch(revalidateTokenFinished());
+    });
+};
+
 export const logOut = () => ({
   type: LOG_OUT,
 });
+
+export const startLogout = () => {
+  return (dispatch) => {
+    localStorage.clear();
+    dispatch(logOut());
+  };
+};

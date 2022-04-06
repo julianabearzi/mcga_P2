@@ -5,20 +5,15 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Layout from '../components/Layout';
 
-const PublicRoute = ({ authenticated, component: Component, ...rest }) => {
+const PublicRoute = ({ authenticated, children, ...rest }) => {
   return (
-    <Route
-      {...rest}
-      component={(props) =>
-        authenticated ? (
-          <Redirect to="/students" />
-        ) : (
-          <Layout>
-            <Component {...props} />
-          </Layout>
-        )
-      }
-    />
+    <Route {...rest}>
+      {authenticated ? (
+        <Redirect to="/students" />
+      ) : (
+        <Layout>{children}</Layout>
+      )}
+    </Route>
   );
 };
 

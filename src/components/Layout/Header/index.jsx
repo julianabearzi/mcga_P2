@@ -6,13 +6,13 @@ import { bindActionCreators } from 'redux';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
-import { logOut as logOutAction } from '../../../redux/actions/authActions';
+import { startLogout as startLogoutAction } from '../../../redux/actions/authActions';
 
 import styles from './header.module.css';
 
-const Header = ({ authenticated, username, logOut }) => {
+const Header = ({ authenticated, username, startLogout }) => {
   const onLogout = (values) => {
-    logOut(values);
+    startLogout(values);
   };
   return (
     <div className={styles.headerContainer}>
@@ -86,7 +86,7 @@ const Header = ({ authenticated, username, logOut }) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      logOut: logOutAction,
+      startLogout: startLogoutAction,
     },
     dispatch
   );

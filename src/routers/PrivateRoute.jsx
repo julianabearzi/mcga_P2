@@ -4,16 +4,10 @@ import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Layout from '../components/Layout';
 
-const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
+const PrivateRoute = ({ authenticated, children, ...rest }) => {
   return (
     <Route {...rest}>
-      {authenticated ? (
-        <Layout>
-          <Component />
-        </Layout>
-      ) : (
-        <Redirect to="/login" />
-      )}
+      {authenticated ? <Layout>{children}</Layout> : <Redirect to="/login" />}
     </Route>
   );
 };
